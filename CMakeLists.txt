@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.15)
+project(svcirct VERSION 0.9.0 LANGUAGES CXX C)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# options
+option(STATIC_BUILD "Make the linked binaries static" OFF)
+
+# check flags
+include(CheckCXXCompilerFlag)
+include(cmake/SetFlags.cmake)
+
+# slang specific flags
+if (CMAKE_BUILD_TYPE MATCHES "Debug")
+    add_compile_options(-DDEBUG)
+endif ()
+
+# import cmake find
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
+
+# external library
+# need to handle external slang prebuilt
+find_package(Slang)
+add_subdirectory(extern)
+
+add_subdirectory(src)
+# add_subdirectory(tools)
+
+
+# # tests
+# include(GoogleTest)
+# include(CTest)
+# enable_testing()
+# add_subdirectory(tests)
