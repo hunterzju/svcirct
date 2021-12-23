@@ -30,7 +30,7 @@ add_subdirectory(src)
 
 
 # # tests
-# include(GoogleTest)
-# include(CTest)
-# enable_testing()
-# add_subdirectory(tests)
+include(GoogleTest)
+include(CTest)
+enable_testing()
+add_subdirectory(tests)

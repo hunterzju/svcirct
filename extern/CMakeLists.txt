@@ -7,3 +7,5 @@ if (NOT LIBSLANG_LIBRARY)
 else()
     MESSAGE("-- Info: using prebuilt slang binaries")
 endif()
+
+add_subdirectory(googletest)
