@@ -24,5 +24,4 @@ endif()
 # target_compile_definitions(svcirct PUBLIC span_CONFIG_SELECT_SPAN=1)
 # add_warning(svcirct)
 
-# # runtime library
-# add_subdirectory(runtime)
+add_subdirectory(standalone)
