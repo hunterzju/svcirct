@@ -26,7 +26,7 @@ find_package(Slang)
 add_subdirectory(extern)
 
 add_subdirectory(src)
-# add_subdirectory(tools)
+add_subdirectory(tools)
 
 
 # # tests
