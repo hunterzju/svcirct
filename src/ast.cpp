@@ -21,6 +21,7 @@
 namespace svcirct {
     
 [[maybe_unused]] void ModuleDefinitionVisitor::handle(const slang::InstanceSymbol &symbol) {
+    fmt::print("visit module instance: {}\n", symbol.name);
     auto const &def = symbol.getDefinition();
     if (def.definitionKind == slang::DefinitionKind::Module) {
         modules.emplace(def.name, &symbol);
