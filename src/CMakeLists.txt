@@ -7,7 +7,7 @@ function(add_warning target)
 endfunction()
 
 add_library(svcirct ast.cpp)
-target_link_libraries(svcirct PUBLIC slangcompiler)
+target_link_libraries(svcirct PUBLIC slangcompiler stdc++fs)
 # use some libraries already used for slang to avoid linking errors
 if (PRE_SLANG_DIR)
     target_include_directories(svcirct PUBLIC
