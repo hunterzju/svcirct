@@ -21,3 +21,11 @@ reset=0;
 up_down=1;
 end
 endmodule 
+
+/**
+ * Module Header
+ *  bind_directive
+ *  initial_construct
+ *      Loop statements
+ *  initial_construct
+/*

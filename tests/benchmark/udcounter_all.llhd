@@ -1,0 +1,113 @@
+proc %up_down_counter.param1.always.199.1 (i1$ %clk, i1$ %reset, i1$ %up_down) -> (i4$ %counter_up_down) {
+0:
+    %1 = prb i4$ %counter_up_down
+    %counter_up_down.shadow = var i4 %1
+    br %init
+init:
+    %clk.prb = prb i1$ %clk
+    %reset.prb = prb i1$ %reset
+    wait %check, %clk, %reset
+check:
+    %2 = prb i4$ %counter_up_down
+    st i4* %counter_up_down.shadow, %2
+    %clk.prb1 = prb i1$ %clk
+    %3 = const i1 0
+    %4 = eq i1 %clk.prb, %3
+    %5 = neq i1 %clk.prb1, %3
+    %posedge = and i1 %4, %5
+    %reset.prb1 = prb i1$ %reset
+    %6 = eq i1 %reset.prb, %3
+    %7 = neq i1 %reset.prb1, %3
+    %posedge1 = and i1 %6, %7
+    %event_or = or i1 %posedge, %posedge1
+    br %event_or, %init, %event
+event:
+    %8 = const time 0s 1d
+    br %7, %if_false, %if_true
+if_true:
+    %9 = const i4 0
+    drv i4$ %counter_up_down, %9, %8
+    br %0
+if_false:
+    %up_down.prb = prb i1$ %up_down
+    %10 = not i1 %up_down.prb
+    %11 = neq i1 %10, %3
+    %12 = const i4 1
+    br %11, %if_false1, %if_true1
+if_true1:
+    %counter_up_down.shadow.ld = ld i4* %counter_up_down.shadow
+    %13 = add i4 %counter_up_down.shadow.ld, %12
+    drv i4$ %counter_up_down, %13, %8
+    br %0
+if_false1:
+    %counter_up_down.shadow.ld1 = ld i4* %counter_up_down.shadow
+    %14 = sub i4 %counter_up_down.shadow.ld1, %12
+    drv i4$ %counter_up_down, %14, %8
+    br %0
+}
+
+entity @up_down_counter.param1 (i1$ %clk, i1$ %reset, i1$ %up_down) -> (i4$ %counter) {
+    %0 = const i4 0
+    %counter_up_down = sig i4 %0
+    %1 = const time 0s 1e
+    %counter_up_down.prb = prb i4$ %counter_up_down
+    drv i4$ %counter, %counter_up_down.prb, %1
+    inst %up_down_counter.param1.always.199.1 (i1$ %clk, i1$ %reset, i1$ %up_down) -> (i4$ %counter_up_down)
+}
+
+proc %updowncounter_tb.initial.63.0 () -> (i1$ %clk) {
+0:
+    %1 = prb i1$ %clk
+    %clk.shadow = var i1 %1
+    %2 = const i1 0
+    %3 = const time 0s 1e
+    drv i1$ %clk, %2, %3
+    st i1* %clk.shadow, %2
+    br %loop_body
+loop_body:
+    %4 = const time 5ns
+    wait %5 for %4
+5:
+    %6 = prb i1$ %clk
+    st i1* %clk.shadow, %6
+    %clk.shadow.ld = ld i1* %clk.shadow
+    %7 = not i1 %clk.shadow.ld
+    %8 = const time 0s 1e
+    drv i1$ %clk, %7, %8
+    st i1* %clk.shadow, %7
+    br %loop_body
+}
+
+proc %updowncounter_tb.initial.112.0 () -> (i1$ %reset, i1$ %up_down) {
+0:
+    %1 = const i1 1
+    %2 = const time 0s 1e
+    drv i1$ %reset, %1, %2
+    %3 = const i1 0
+    drv i1$ %up_down, %3, %2
+    %4 = const time 20ns
+    wait %5 for %4
+5:
+    %6 = const i1 0
+    %7 = const time 0s 1e
+    drv i1$ %reset, %6, %7
+    %8 = const time 200ns
+    wait %9 for %8
+9:
+    %10 = const i1 1
+    %11 = const time 0s 1e
+    drv i1$ %up_down, %10, %11
+    halt
+}
+
+entity @updowncounter_tb () -> () {
+    %0 = const i1 0
+    %clk = sig i1 %0
+    %reset = sig i1 %0
+    %up_down = sig i1 %0
+    %1 = const i4 0
+    %counter = sig i4 %1
+    inst @up_down_counter.param1 (i1$ %clk, i1$ %reset, i1$ %up_down) -> (i4$ %counter)
+    inst %updowncounter_tb.initial.63.0 () -> (i1$ %clk)
+    inst %updowncounter_tb.initial.112.0 () -> (i1$ %reset, i1$ %up_down)
+}

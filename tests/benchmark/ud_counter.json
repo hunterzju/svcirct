@@ -1,0 +1,637 @@
+{
+  "name": "$root",
+  "kind": "Root",
+  "addr": 31891392,
+  "members": [
+    {
+      "name": "",
+      "kind": "CompilationUnit",
+      "addr": 31988800
+    },
+    {
+      "name": "",
+      "kind": "CompilationUnit",
+      "addr": 31989168
+    },
+    {
+      "name": "updowncounter_tb",
+      "kind": "Instance",
+      "addr": 32058520,
+      "body": {
+        "name": "updowncounter_tb",
+        "kind": "InstanceBody",
+        "addr": 32057040,
+        "members": [
+          {
+            "name": "clk",
+            "kind": "Variable",
+            "addr": 32057368,
+            "type": "reg",
+            "lifetime": "Static",
+            "isConstant": false,
+            "isCompilerGenerated": false
+          },
+          {
+            "name": "reset",
+            "kind": "Variable",
+            "addr": 32057536,
+            "type": "reg",
+            "lifetime": "Static",
+            "isConstant": false,
+            "isCompilerGenerated": false
+          },
+          {
+            "name": "up_down",
+            "kind": "Variable",
+            "addr": 32057704,
+            "type": "reg",
+            "lifetime": "Static",
+            "isConstant": false,
+            "isCompilerGenerated": false
+          },
+          {
+            "name": "counter",
+            "kind": "Net",
+            "addr": 32057872,
+            "type": "logic[3:0]",
+            "netType": {
+              "name": "wire",
+              "kind": "NetType",
+              "addr": 31880192,
+              "type": "logic"
+            }
+          },
+          {
+            "name": "dut",
+            "kind": "Instance",
+            "addr": 32058880,
+            "body": {
+              "name": "up_down_counter",
+              "kind": "InstanceBody",
+              "addr": 32058992,
+              "members": [
+                {
+                  "name": "clk",
+                  "kind": "Port",
+                  "addr": 32060080,
+                  "type": "logic",
+                  "direction": "In",
+                  "internalSymbol": "32060264 clk"
+                },
+                {
+                  "name": "clk",
+                  "kind": "Net",
+                  "addr": 32060264,
+                  "type": "logic",
+                  "netType": {
+                    "name": "wire",
+                    "kind": "NetType",
+                    "addr": 31880192,
+                    "type": "logic"
+                  }
+                },
+                {
+                  "name": "reset",
+                  "kind": "Port",
+                  "addr": 32060456,
+                  "type": "logic",
+                  "direction": "In",
+                  "internalSymbol": "32060640 reset"
+                },
+                {
+                  "name": "reset",
+                  "kind": "Net",
+                  "addr": 32060640,
+                  "type": "logic",
+                  "netType": {
+                    "name": "wire",
+                    "kind": "NetType",
+                    "addr": 31880192,
+                    "type": "logic"
+                  }
+                },
+                {
+                  "name": "up_down",
+                  "kind": "Port",
+                  "addr": 32060832,
+                  "type": "logic",
+                  "direction": "In",
+                  "internalSymbol": "32063824 up_down"
+                },
+                {
+                  "name": "up_down",
+                  "kind": "Net",
+                  "addr": 32063824,
+                  "type": "logic",
+                  "netType": {
+                    "name": "wire",
+                    "kind": "NetType",
+                    "addr": 31880192,
+                    "type": "logic"
+                  }
+                },
+                {
+                  "name": "counter",
+                  "kind": "Port",
+                  "addr": 32064016,
+                  "type": "logic[3:0]",
+                  "direction": "Out",
+                  "internalSymbol": "32064200 counter"
+                },
+                {
+                  "name": "counter",
+                  "kind": "Net",
+                  "addr": 32064200,
+                  "type": "logic[3:0]",
+                  "netType": {
+                    "name": "wire",
+                    "kind": "NetType",
+                    "addr": 31880192,
+                    "type": "logic"
+                  }
+                },
+                {
+                  "name": "counter_up_down",
+                  "kind": "Variable",
+                  "addr": 32059320,
+                  "type": "reg[3:0]",
+                  "lifetime": "Static",
+                  "isConstant": false,
+                  "isCompilerGenerated": false
+                },
+                {
+                  "name": "",
+                  "kind": "ProceduralBlock",
+                  "addr": 32059488,
+                  "procedureKind": "Always",
+                  "body": {
+                    "kind": "Timed",
+                    "timing": {
+                      "kind": "EventList",
+                      "events": [
+                        {
+                          "kind": "SignalEvent",
+                          "expr": {
+                            "kind": "NamedValue",
+                            "type": "logic",
+                            "symbol": "32060264 clk"
+                          },
+                          "edge": "PosEdge"
+                        },
+                        {
+                          "kind": "SignalEvent",
+                          "expr": {
+                            "kind": "NamedValue",
+                            "type": "logic",
+                            "symbol": "32060640 reset"
+                          },
+                          "edge": "PosEdge"
+                        }
+                      ]
+                    },
+                    "stmt": {
+                      "kind": "Block",
+                      "blockKind": "Sequential",
+                      "body": {
+                        "kind": "List",
+                        "list": [
+                          {
+                            "kind": "Conditional",
+                            "cond": {
+                              "kind": "NamedValue",
+                              "type": "logic",
+                              "symbol": "32060640 reset"
+                            },
+                            "ifTrue": {
+                              "kind": "ExpressionStatement",
+                              "expr": {
+                                "kind": "Assignment",
+                                "type": "reg[3:0]",
+                                "left": {
+                                  "kind": "NamedValue",
+                                  "type": "reg[3:0]",
+                                  "symbol": "32059320 counter_up_down"
+                                },
+                                "right": {
+                                  "kind": "Conversion",
+                                  "type": "reg[3:0]",
+                                  "operand": {
+                                    "kind": "IntegerLiteral",
+                                    "type": "bit[3:0]",
+                                    "value": "4'b0",
+                                    "constant": "4'b0"
+                                  },
+                                  "constant": "4'b0"
+                                },
+                                "isNonBlocking": true
+                              }
+                            },
+                            "ifFalse": {
+                              "kind": "Conditional",
+                              "cond": {
+                                "kind": "UnaryOp",
+                                "type": "logic",
+                                "op": "BitwiseNot",
+                                "operand": {
+                                  "kind": "NamedValue",
+                                  "type": "logic",
+                                  "symbol": "32063824 up_down"
+                                }
+                              },
+                              "ifTrue": {
+                                "kind": "ExpressionStatement",
+                                "expr": {
+                                  "kind": "Assignment",
+                                  "type": "reg[3:0]",
+                                  "left": {
+                                    "kind": "NamedValue",
+                                    "type": "reg[3:0]",
+                                    "symbol": "32059320 counter_up_down"
+                                  },
+                                  "right": {
+                                    "kind": "BinaryOp",
+                                    "type": "reg[3:0]",
+                                    "op": "Add",
+                                    "left": {
+                                      "kind": "NamedValue",
+                                      "type": "reg[3:0]",
+                                      "symbol": "32059320 counter_up_down"
+                                    },
+                                    "right": {
+                                      "kind": "Conversion",
+                                      "type": "reg[3:0]",
+                                      "operand": {
+                                        "kind": "IntegerLiteral",
+                                        "type": "bit[3:0]",
+                                        "value": "4'b1",
+                                        "constant": "4'b1"
+                                      },
+                                      "constant": "4'b1"
+                                    }
+                                  },
+                                  "isNonBlocking": true
+                                }
+                              },
+                              "ifFalse": {
+                                "kind": "ExpressionStatement",
+                                "expr": {
+                                  "kind": "Assignment",
+                                  "type": "reg[3:0]",
+                                  "left": {
+                                    "kind": "NamedValue",
+                                    "type": "reg[3:0]",
+                                    "symbol": "32059320 counter_up_down"
+                                  },
+                                  "right": {
+                                    "kind": "BinaryOp",
+                                    "type": "reg[3:0]",
+                                    "op": "Subtract",
+                                    "left": {
+                                      "kind": "NamedValue",
+                                      "type": "reg[3:0]",
+                                      "symbol": "32059320 counter_up_down"
+                                    },
+                                    "right": {
+                                      "kind": "Conversion",
+                                      "type": "reg[3:0]",
+                                      "operand": {
+                                        "kind": "IntegerLiteral",
+                                        "type": "bit[3:0]",
+                                        "value": "4'b1",
+                                        "constant": "4'b1"
+                                      },
+                                      "constant": "4'b1"
+                                    }
+                                  },
+                                  "isNonBlocking": true
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "",
+                  "kind": "ContinuousAssign",
+                  "addr": 32064424,
+                  "assignment": {
+                    "kind": "Assignment",
+                    "type": "logic[3:0]",
+                    "left": {
+                      "kind": "NamedValue",
+                      "type": "logic[3:0]",
+                      "symbol": "32064200 counter"
+                    },
+                    "right": {
+                      "kind": "NamedValue",
+                      "type": "reg[3:0]",
+                      "symbol": "32059320 counter_up_down"
+                    },
+                    "isNonBlocking": false
+                  }
+                }
+              ],
+              "definition": "up_down_counter"
+            },
+            "connections": [
+              {
+                "isInterfacePort": false,
+                "port": "32060080 clk",
+                "expr": {
+                  "kind": "NamedValue",
+                  "type": "reg",
+                  "symbol": "32057368 clk"
+                }
+              },
+              {
+                "isInterfacePort": false,
+                "port": "32060456 reset",
+                "expr": {
+                  "kind": "NamedValue",
+                  "type": "reg",
+                  "symbol": "32057536 reset"
+                }
+              },
+              {
+                "isInterfacePort": false,
+                "port": "32064016 counter",
+                "expr": {
+                  "kind": "Assignment",
+                  "type": "logic[3:0]",
+                  "left": {
+                    "kind": "NamedValue",
+                    "type": "logic[3:0]",
+                    "symbol": "32057872 counter"
+                  },
+                  "right": {
+                    "kind": "EmptyArgument",
+                    "type": "logic[3:0]"
+                  },
+                  "isNonBlocking": false
+                }
+              },
+              {
+                "isInterfacePort": false,
+                "port": "32060832 up_down",
+                "expr": {
+                  "kind": "NamedValue",
+                  "type": "reg",
+                  "symbol": "32057704 up_down"
+                }
+              }
+            ]
+          },
+          {
+            "name": "",
+            "kind": "ProceduralBlock",
+            "addr": 32058152,
+            "procedureKind": "Initial",
+            "body": {
+              "kind": "Block",
+              "blockKind": "Sequential",
+              "body": {
+                "kind": "List",
+                "list": [
+                  {
+                    "kind": "ExpressionStatement",
+                    "expr": {
+                      "kind": "Assignment",
+                      "type": "reg",
+                      "left": {
+                        "kind": "NamedValue",
+                        "type": "reg",
+                        "symbol": "32057368 clk"
+                      },
+                      "right": {
+                        "kind": "Conversion",
+                        "type": "reg",
+                        "operand": {
+                          "kind": "Conversion",
+                          "type": "logic signed[31:0]",
+                          "operand": {
+                            "kind": "IntegerLiteral",
+                            "type": "int",
+                            "value": "0",
+                            "constant": "0"
+                          },
+                          "constant": "0"
+                        },
+                        "constant": "1'b0"
+                      },
+                      "isNonBlocking": false
+                    }
+                  },
+                  {
+                    "kind": "ForeverLoop",
+                    "body": {
+                      "kind": "Timed",
+                      "timing": {
+                        "kind": "Delay",
+                        "expr": {
+                          "kind": "TimeLiteral",
+                          "type": "realtime",
+                          "value": 0.5,
+                          "constant": "0.5"
+                        }
+                      },
+                      "stmt": {
+                        "kind": "ExpressionStatement",
+                        "expr": {
+                          "kind": "Assignment",
+                          "type": "reg",
+                          "left": {
+                            "kind": "NamedValue",
+                            "type": "reg",
+                            "symbol": "32057368 clk"
+                          },
+                          "right": {
+                            "kind": "UnaryOp",
+                            "type": "reg",
+                            "op": "BitwiseNot",
+                            "operand": {
+                              "kind": "NamedValue",
+                              "type": "reg",
+                              "symbol": "32057368 clk"
+                            }
+                          },
+                          "isNonBlocking": false
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "",
+            "kind": "ProceduralBlock",
+            "addr": 32058336,
+            "procedureKind": "Initial",
+            "body": {
+              "kind": "Block",
+              "blockKind": "Sequential",
+              "body": {
+                "kind": "List",
+                "list": [
+                  {
+                    "kind": "ExpressionStatement",
+                    "expr": {
+                      "kind": "Assignment",
+                      "type": "reg",
+                      "left": {
+                        "kind": "NamedValue",
+                        "type": "reg",
+                        "symbol": "32057536 reset"
+                      },
+                      "right": {
+                        "kind": "Conversion",
+                        "type": "reg",
+                        "operand": {
+                          "kind": "Conversion",
+                          "type": "logic signed[31:0]",
+                          "operand": {
+                            "kind": "IntegerLiteral",
+                            "type": "int",
+                            "value": "1",
+                            "constant": "1"
+                          },
+                          "constant": "1"
+                        },
+                        "constant": "1'b1"
+                      },
+                      "isNonBlocking": false
+                    }
+                  },
+                  {
+                    "kind": "ExpressionStatement",
+                    "expr": {
+                      "kind": "Assignment",
+                      "type": "reg",
+                      "left": {
+                        "kind": "NamedValue",
+                        "type": "reg",
+                        "symbol": "32057704 up_down"
+                      },
+                      "right": {
+                        "kind": "Conversion",
+                        "type": "reg",
+                        "operand": {
+                          "kind": "Conversion",
+                          "type": "logic signed[31:0]",
+                          "operand": {
+                            "kind": "IntegerLiteral",
+                            "type": "int",
+                            "value": "0",
+                            "constant": "0"
+                          },
+                          "constant": "0"
+                        },
+                        "constant": "1'b0"
+                      },
+                      "isNonBlocking": false
+                    }
+                  },
+                  {
+                    "kind": "Timed",
+                    "timing": {
+                      "kind": "Delay",
+                      "expr": {
+                        "kind": "TimeLiteral",
+                        "type": "realtime",
+                        "value": 2,
+                        "constant": "2"
+                      }
+                    },
+                    "stmt": {
+                      "kind": "Empty"
+                    }
+                  },
+                  {
+                    "kind": "ExpressionStatement",
+                    "expr": {
+                      "kind": "Assignment",
+                      "type": "reg",
+                      "left": {
+                        "kind": "NamedValue",
+                        "type": "reg",
+                        "symbol": "32057536 reset"
+                      },
+                      "right": {
+                        "kind": "Conversion",
+                        "type": "reg",
+                        "operand": {
+                          "kind": "Conversion",
+                          "type": "logic signed[31:0]",
+                          "operand": {
+                            "kind": "IntegerLiteral",
+                            "type": "int",
+                            "value": "0",
+                            "constant": "0"
+                          },
+                          "constant": "0"
+                        },
+                        "constant": "1'b0"
+                      },
+                      "isNonBlocking": false
+                    }
+                  },
+                  {
+                    "kind": "Timed",
+                    "timing": {
+                      "kind": "Delay",
+                      "expr": {
+                        "kind": "TimeLiteral",
+                        "type": "realtime",
+                        "value": 20,
+                        "constant": "20"
+                      }
+                    },
+                    "stmt": {
+                      "kind": "Empty"
+                    }
+                  },
+                  {
+                    "kind": "ExpressionStatement",
+                    "expr": {
+                      "kind": "Assignment",
+                      "type": "reg",
+                      "left": {
+                        "kind": "NamedValue",
+                        "type": "reg",
+                        "symbol": "32057704 up_down"
+                      },
+                      "right": {
+                        "kind": "Conversion",
+                        "type": "reg",
+                        "operand": {
+                          "kind": "Conversion",
+                          "type": "logic signed[31:0]",
+                          "operand": {
+                            "kind": "IntegerLiteral",
+                            "type": "int",
+                            "value": "1",
+                            "constant": "1"
+                          },
+                          "constant": "1"
+                        },
+                        "constant": "1'b1"
+                      },
+                      "isNonBlocking": false
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "definition": "updowncounter_tb"
+      },
+      "connections": [
+      ]
+    }
+  ]
+}
