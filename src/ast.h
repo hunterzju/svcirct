@@ -19,9 +19,30 @@
 
 #include "slang/compilation/Compilation.h"
 #include "slang/symbols/ASTVisitor.h"
+#include "slang/syntax/SyntaxVisitor.h"
 
 namespace svcirct
 {
+class SvSyntaxVisitor : public slang::SyntaxVisitor<SvSyntaxVisitor> {
+public:
+    // LRM: IEEE 1800-2017 
+    void handle(const slang::ModuleDeclarationSyntax &mod_decl);
+    void handle(const slang::ModuleHeaderSyntax &mod_header);
+    
+    void handle(const slang::ProceduralBlockSyntax &proc_block);
+    void handle(const slang::StatementSyntax &statement); 
+    void handle(const slang::TimingControlStatementSyntax &time_ctl);
+    void handle(const slang::ConditionalStatementSyntax &cond_stat);
+};
+
+class DialectOpVisitor : public slang::ASTVisitor<DialectOpVisitor, true, true> {
+public:
+    DialectOpVisitor() = default;
+
+    void handle(const slang::InstanceSymbol &inst_symbol);
+    void handle(const slang::StatementSyntax &stat_symbol);
+};
+
 /// visit slang AST nodes
 class ModuleDefinitionVisitor : public slang::ASTVisitor<ModuleDefinitionVisitor, false, false> {
 public:

@@ -19,6 +19,65 @@
 #include <string>
 
 namespace svcirct {
+
+// LRM 23.2
+void SvSyntaxVisitor::handle(const slang::ModuleDeclarationSyntax &mod_decl) {
+    fmt::print("visit module def: {}\n", mod_decl.toString());
+    visit(*mod_decl.header);
+    
+    for(auto child : mod_decl.members) {
+        fmt::print("module child node type: {}\n", slang::toString(child->kind));
+        visit(*child);
+    }
+}
+
+void SvSyntaxVisitor::handle(const slang::ModuleHeaderSyntax &mod_header) {
+    fmt::print("visit module header: {}\n", mod_header.toString());
+}
+
+// LRM 9.2.2
+void SvSyntaxVisitor::handle(const slang::ProceduralBlockSyntax &proc_block) {
+    fmt::print("visit proc block: {}\n{}\n", slang::toString(proc_block.kind), proc_block.toString());
+    visit(*proc_block.statement);
+}
+
+// LRM 9.4 Handle TimingControlStatement
+void SvSyntaxVisitor::handle(const slang::TimingControlStatementSyntax &time_ctl) {
+    fmt::print("visit time_ctrl_statement: {}\n", time_ctl.toString());
+    fmt::print("time ctrl kind: {}\n{}\n", slang::toString(time_ctl.timingControl->kind), time_ctl.timingControl->toString());
+    fmt::print("time ctrl sub statement kind: {}\n{}\n", slang::toString(time_ctl.statement->kind), time_ctl.statement->toString());
+    visit(*time_ctl.timingControl);
+    visit(*time_ctl.statement);
+}
+
+// LRM 12.4
+void SvSyntaxVisitor::handle(const slang::ConditionalStatementSyntax &cond_stat) {
+    fmt::print("visit condition statement: {}\n", cond_stat.toString());
+    fmt::print("cond predicate: {}\n{}\n", slang::toString(cond_stat.predicate->kind), cond_stat.predicate->toString());
+    fmt::print("cond statement: {}\n{}\n", slang::toString(cond_stat.statement->kind), cond_stat.statement->toString());
+    fmt::print("cond elseClause: {}\n{}", slang::toString(cond_stat.elseClause->kind), cond_stat.elseClause->toString());
+    visit(*cond_stat.statement);
+}
+
+void SvSyntaxVisitor::handle(const slang::StatementSyntax &statement) {
+    fmt::print("visit statement: {}\n{}\n", slang::toString(statement.kind), statement.toString());
+
+    // TODO: Handle ConditionalStatement
+    switch (statement.kind)
+    {
+    case slang::SyntaxKind::ConditionalStatement:
+        /* code */
+        // FIXME: how to visit element inside ConditionalStatementSyntax? 
+        for(auto attr : statement.attributes) {
+            fmt::print("cond attr: {}-{}\n", attr->kind, attr->toString());
+        }
+        break;
+    
+    default:
+        fmt::print("statement kind: {}\n", statement.kind);
+        break;
+    }
+}
     
 [[maybe_unused]] void ModuleDefinitionVisitor::handle(const slang::InstanceSymbol &symbol) {
     fmt::print("visit module instance: {}\n", symbol.name);

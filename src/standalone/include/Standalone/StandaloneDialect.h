@@ -10,6 +10,7 @@
 #define STANDALONE_STANDALONEDIALECT_H
 
 #include "mlir/IR/Dialect.h"
+#include "mlir/IR/BuiltinOps.h"
 
 #include "Standalone/StandaloneOpsDialect.h.inc"
 

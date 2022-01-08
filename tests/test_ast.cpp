@@ -3,7 +3,7 @@
  * @Author: hunterzju
  * @Date: 2021-12-23 14:43:43
  * @LastEditors: `${env:USERNAME}`
- * @LastEditTime: 2021-12-23 17:25:01
+ * @LastEditTime: 2022-01-07 14:25:22
  * @FilePath: /svcirct/tests/test_ast.cpp
  */
 #include "../src/ast.h"
@@ -35,4 +35,24 @@ endmodule
     EXPECT_EQ(vis.modules.size(), 4);
 }
 
-
+TEST(ast, module) {
+    auto tree = SyntaxTree::fromText(R"(
+module dff_sync_reset (
+input  wire data  ,
+input  wire clk   ,
+input  wire reset ,
+output reg  q);
+always_ff @ ( posedge clk)
+if (~reset) begin
+  q <= 1'b0;
+end  else begin
+  q <= data;
+end
+endmodule
+    )");
+    Compilation compilation;
+    compilation.addSyntaxTree(tree);
+    SvSyntaxVisitor vis;
+    tree->root().visit(vis);
+    // compilation.getRoot().visit(vis);
+}
