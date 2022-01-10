@@ -3,7 +3,7 @@
  * @Author: hunterzju
  * @Date: 2021-12-23 14:43:43
  * @LastEditors: `${env:USERNAME}`
- * @LastEditTime: 2022-01-07 14:25:22
+ * @LastEditTime: 2022-01-09 14:58:11
  * @FilePath: /svcirct/tests/test_ast.cpp
  */
 #include "../src/ast.h"
@@ -54,5 +54,6 @@ endmodule
     compilation.addSyntaxTree(tree);
     SvSyntaxVisitor vis;
     tree->root().visit(vis);
-    // compilation.getRoot().visit(vis);
+    GlobalVisitor g_vis;
+    compilation.getRoot().visit(g_vis);
 }

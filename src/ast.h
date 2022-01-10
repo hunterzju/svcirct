@@ -20,6 +20,7 @@
 #include "slang/compilation/Compilation.h"
 #include "slang/symbols/ASTVisitor.h"
 #include "slang/syntax/SyntaxVisitor.h"
+#include "fmt/format.h"
 
 namespace svcirct
 {
@@ -41,9 +42,35 @@ public:
 
     void handle(const slang::InstanceSymbol &inst_symbol);
     void handle(const slang::StatementSyntax &stat_symbol);
+
+    template<typename T>
+    void handle(const T &t) {
+        fmt::print("syntax visitor visit: {}-{}\n", slang::toString(t.kind), t.toString());
+        visit(t);
+    }
 };
 
 /// visit slang AST nodes
+/// visit nodes kind for test
+class GlobalVisitor : public slang::ASTVisitor<GlobalVisitor, true, true> {
+    public:
+    int count = 0;
+    template<typename T>
+    void handle(const T &t) {
+        count++;
+        fmt::print("visit:{}-{}\n", count, slang::toString(t.kind));
+        visitDefault(t);
+    }
+};
+
+/// visit Node
+class NodeVisitor : public slang::ASTVisitor<NodeVisitor, true, true> {
+    void handle(const slang::InstanceSymbol &inst_symbol);
+    void handle(const slang::VariableSymbol &var_symbol);
+    void handle(const slang::ProceduralBlockSymbol &proc_symbol);
+};
+
+/// visit module definition only
 class ModuleDefinitionVisitor : public slang::ASTVisitor<ModuleDefinitionVisitor, false, false> {
 public:
     ModuleDefinitionVisitor() = default;

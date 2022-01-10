@@ -13,7 +13,6 @@
 // limitations under the License.
 
 #include "ast.h"
-#include "fmt/format.h"
 
 #include <unordered_set>
 #include <string>
@@ -62,23 +61,33 @@ void SvSyntaxVisitor::handle(const slang::ConditionalStatementSyntax &cond_stat)
 void SvSyntaxVisitor::handle(const slang::StatementSyntax &statement) {
     fmt::print("visit statement: {}\n{}\n", slang::toString(statement.kind), statement.toString());
 
-    // TODO: Handle ConditionalStatement
     switch (statement.kind)
     {
-    case slang::SyntaxKind::ConditionalStatement:
-        /* code */
-        // FIXME: how to visit element inside ConditionalStatementSyntax? 
-        for(auto attr : statement.attributes) {
-            fmt::print("cond attr: {}-{}\n", attr->kind, attr->toString());
+        case slang::SyntaxKind::ConditionalStatement:{
+            /* need explicit {} */
+            fmt::print("visit cond statement: {}\n", statement.toString());
+            auto cond_stat = static_cast<const slang::ConditionalStatementSyntax*>(&statement);
+            visit(*cond_stat);
+            break;
         }
-        break;
-    
-    default:
-        fmt::print("statement kind: {}\n", statement.kind);
-        break;
+        default:
+            fmt::print("statement kind: {}\n", statement.kind);
+            break;
     }
 }
     
+    void NodeVisitor::handle(const slang::InstanceSymbol &inst_symbol) {
+        fmt::print("visit module instance: {}\n", inst_symbol.name);
+    }
+
+    void NodeVisitor::handle(const slang::VariableSymbol &var_symbol) {    
+        fmt::print("visit module instance: {}\n", var_symbol.name);
+    }
+
+    void NodeVisitor::handle(const slang::ProceduralBlockSymbol &proc_symbol) {    
+        fmt::print("visit module instance: {}\n", proc_symbol.name);
+    }
+
 [[maybe_unused]] void ModuleDefinitionVisitor::handle(const slang::InstanceSymbol &symbol) {
     fmt::print("visit module instance: {}\n", symbol.name);
     auto const &def = symbol.getDefinition();
