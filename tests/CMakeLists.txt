@@ -1,3 +1,9 @@
+find_package(MLIR REQUIRED CONFIG)
+include_directories(${LLVM_INCLUDE_DIRS})
+include_directories(${MLIR_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/src/standalone/include)
+include_directories(${PROJECT_BINARY_DIR}/src/standalone/include)
+
 function(add_test target)
     add_executable(${target} ${target}.cpp)
     set(extra_lib ${ARGN})
@@ -9,3 +15,4 @@ function(add_test target)
 endfunction()
 
 add_test(test_ast)
+add_test(test_mlir)

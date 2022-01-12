@@ -50,7 +50,25 @@ def Standalone_ProcOp : Standalone_Op<"proc", []> {
       llhd.halt
     }
     ```
+    FIXME: MLIR only supports one Variadic argument?
   }];
+  let arguments = (ins StrAttr:$name,
+                       Variadic<I64>:$args);
+  
+  // let results = (outs Variadic<I64>:$outputs);
+  
+  // let regions = (region AnyRegion: $body);
+
+  let assemblyFormat = [{
+    $name `(` $args `)` attr-dict `:`
+    type($args)
+  }];
+
+  let extraClassDeclaration = [{
+    ;
+  }];
+
+  let verifier = [{ return mlir::verify(*this); }];
 }
 
 def Standalone_EntityOp : Standalone_Op<"entity", []> {

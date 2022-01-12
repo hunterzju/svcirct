@@ -24,6 +24,14 @@ Module
     |- AlwaysFFBlock
 ```
 
+### 映射关系
+```
+AST--------------------------->DialectOp
+moduledef -> entity
+block -> proc
+moduleInst -> inst
+```
+
 ### module
 module语法结构
 ```

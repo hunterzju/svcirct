@@ -1,3 +1,11 @@
+add_subdirectory(standalone)
+
+find_package(MLIR REQUIRED CONFIG)
+include_directories(${LLVM_INCLUDE_DIRS})
+include_directories(${MLIR_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/src/standalone/include)
+include_directories(${PROJECT_BINARY_DIR}/src/standalone/include)
+
 function(add_warning target)
     if(MSVC)
         target_compile_options(${target} PRIVATE /W4 /WX)
@@ -6,8 +14,12 @@ function(add_warning target)
     endif()
 endfunction()
 
-add_library(svcirct ast.cpp)
-target_link_libraries(svcirct PUBLIC slangcompiler stdc++fs)
+add_library(svcirct ast.cpp MLIRGen.cpp)
+target_link_libraries(svcirct 
+    PUBLIC 
+    slangcompiler 
+    stdc++fs
+    MLIRStandalone)
 # use some libraries already used for slang to avoid linking errors
 if (PRE_SLANG_DIR)
     target_include_directories(svcirct PUBLIC
@@ -24,4 +36,3 @@ endif()
 # target_compile_definitions(svcirct PUBLIC span_CONFIG_SELECT_SPAN=1)
 # add_warning(svcirct)
 
-add_subdirectory(standalone)

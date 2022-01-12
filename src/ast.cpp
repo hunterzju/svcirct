@@ -64,29 +64,61 @@ void SvSyntaxVisitor::handle(const slang::StatementSyntax &statement) {
     switch (statement.kind)
     {
         case slang::SyntaxKind::ConditionalStatement:{
-            /* need explicit {} */
-            fmt::print("visit cond statement: {}\n", statement.toString());
+            // need explicit "{","}" to limit the lifetime of cond_stat
             auto cond_stat = static_cast<const slang::ConditionalStatementSyntax*>(&statement);
             visit(*cond_stat);
             break;
         }
         default:
-            fmt::print("statement kind: {}\n", statement.kind);
+            fmt::print("statement kind: {}\n", slang::toString(statement.kind));
             break;
     }
 }
+
+void DialectOpVisitor::handle(const slang::RootSymbol &root_symbol) {
+    fmt::print("dialect visit root: {}-{}\n", slang::toString(root_symbol.kind), root_symbol.name);
+    for (auto comp: root_symbol.compilationUnits){
+        visit(*comp);
+    }
     
-    void NodeVisitor::handle(const slang::InstanceSymbol &inst_symbol) {
-        fmt::print("visit module instance: {}\n", inst_symbol.name);
+    for (auto inst: root_symbol.topInstances) {
+        visit(*inst);
     }
+}
 
-    void NodeVisitor::handle(const slang::VariableSymbol &var_symbol) {    
-        fmt::print("visit module instance: {}\n", var_symbol.name);
+void DialectOpVisitor::handle(const slang::CompilationUnitSymbol &comp_symbol) {
+    fmt::print("dialect visit compilationUnit: {}-{}\n", slang::toString(comp_symbol.kind), comp_symbol.name);
+    auto m_iter_range = comp_symbol.members();
+    for (auto m_iter = m_iter_range.begin(); m_iter != m_iter_range.end(); m_iter++) {
+        fmt::print("visit compile member: {}-{}", slang::toString(m_iter->kind), m_iter->name);
     }
+}
 
-    void NodeVisitor::handle(const slang::ProceduralBlockSymbol &proc_symbol) {    
-        fmt::print("visit module instance: {}\n", proc_symbol.name);
+void DialectOpVisitor::handle(const slang::InstanceSymbol &inst_symbol) {
+    fmt::print("dialect visit instance: {}-{}\n", slang::toString(inst_symbol.kind), inst_symbol.name);
+    // visitDefault(inst_symbol);
+
+    auto m_iter_range = inst_symbol.body.members();
+    for (auto m_iter = m_iter_range.begin(); m_iter != m_iter_range.end(); m_iter++) {
+        fmt::print("visit compile member: {}-{}", slang::toString(m_iter->kind), m_iter->name);
     }
+}
+void DialectOpVisitor::handle(const slang::StatementSyntax &stat_symbol) {
+    fmt::print("dialect visit statement: {}-{}\n", slang::toString(stat_symbol.kind), stat_symbol.label->name.toString());
+    visitDefault(stat_symbol);
+}
+
+void NodeVisitor::handle(const slang::InstanceSymbol &inst_symbol) {
+    fmt::print("visit module instance: {}\n", inst_symbol.name);
+}
+
+void NodeVisitor::handle(const slang::VariableSymbol &var_symbol) {    
+    fmt::print("visit module instance: {}\n", var_symbol.name);
+}
+
+void NodeVisitor::handle(const slang::ProceduralBlockSymbol &proc_symbol) {    
+    fmt::print("visit module instance: {}\n", proc_symbol.name);
+}
 
 [[maybe_unused]] void ModuleDefinitionVisitor::handle(const slang::InstanceSymbol &symbol) {
     fmt::print("visit module instance: {}\n", symbol.name);

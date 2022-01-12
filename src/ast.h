@@ -22,6 +22,10 @@
 #include "slang/syntax/SyntaxVisitor.h"
 #include "fmt/format.h"
 
+#include "MLIRGen.h"
+#include "Standalone/StandaloneDialect.h"
+#include "Standalone/StandaloneOps.h"
+
 namespace svcirct
 {
 class SvSyntaxVisitor : public slang::SyntaxVisitor<SvSyntaxVisitor> {
@@ -38,16 +42,23 @@ public:
 
 class DialectOpVisitor : public slang::ASTVisitor<DialectOpVisitor, true, true> {
 public:
-    DialectOpVisitor() = default;
+    // DialectOpVisitor() = default;
+    DialectOpVisitor() {
+        context.getOrLoadDialect<mlir::standalone::StandaloneDialect>();
+    }
 
+    void handle(const slang::RootSymbol &root_symbol);
+    void handle(const slang::CompilationUnitSymbol &comp_symbol);
     void handle(const slang::InstanceSymbol &inst_symbol);
     void handle(const slang::StatementSyntax &stat_symbol);
 
     template<typename T>
     void handle(const T &t) {
-        fmt::print("syntax visitor visit: {}-{}\n", slang::toString(t.kind), t.toString());
-        visit(t);
+        fmt::print("Dialect visitor visit: {}\n", slang::toString(t.kind));
+        visitDefault(t);
     }
+private:
+    mlir::MLIRContext context;
 };
 
 /// visit slang AST nodes

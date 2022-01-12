@@ -3,7 +3,7 @@
  * @Author: hunterzju
  * @Date: 2021-12-23 14:43:43
  * @LastEditors: `${env:USERNAME}`
- * @LastEditTime: 2022-01-09 14:58:11
+ * @LastEditTime: 2022-01-11 14:39:39
  * @FilePath: /svcirct/tests/test_ast.cpp
  */
 #include "../src/ast.h"
@@ -49,11 +49,37 @@ end  else begin
   q <= data;
 end
 endmodule
+
+module tb_top ();
+    reg clk;
+    reg reset;
+    reg d;
+    wire q;
+
+    dff_sync_reset dff_sync_reset_0(.data(d),
+                                    .clk(clk),
+                                    .reset(reset),
+                                    .q(q));
+    
+    always #10  clk <= ~clk;
+
+    initial begin
+        reset <= 0;
+        d <= 0;
+
+        #10 reset <= 1;
+        #5  d <= 1;
+        #8  d <= 0;
+        #2  d <= 1;
+        #10 d <= 0;
+    end
+
+endmodule
     )");
     Compilation compilation;
     compilation.addSyntaxTree(tree);
     SvSyntaxVisitor vis;
     tree->root().visit(vis);
-    GlobalVisitor g_vis;
-    compilation.getRoot().visit(g_vis);
+    DialectOpVisitor dial_vis;
+    compilation.getRoot().visit(dial_vis);
 }

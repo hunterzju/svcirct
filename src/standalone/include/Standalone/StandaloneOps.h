@@ -13,6 +13,7 @@
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/OpDefinition.h"
 #include "mlir/Interfaces/SideEffectInterfaces.h"
+#include "mlir/IR/Verifier.h"
 
 #define GET_OP_CLASSES
 #include "Standalone/StandaloneOps.h.inc"
