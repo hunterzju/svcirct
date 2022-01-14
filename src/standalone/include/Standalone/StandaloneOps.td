@@ -10,8 +10,6 @@
 #define STANDALONE_OPS
 
 include "Standalone/StandaloneDialect.td"
-include "mlir/Interfaces/InferTypeOpInterface.td"
-include "mlir/Interfaces/SideEffectInterfaces.td"
 
 def Standalone_ProcOp : Standalone_Op<"proc", []> {
   let summary = "Create a process";

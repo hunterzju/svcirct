@@ -80,7 +80,8 @@ void DialectOpVisitor::handle(const slang::RootSymbol &root_symbol) {
     for (auto comp: root_symbol.compilationUnits){
         visit(*comp);
     }
-    
+
+    mlir::OwningModuleRef module = mlirGen(context, root_symbol);    
     for (auto inst: root_symbol.topInstances) {
         visit(*inst);
     }
@@ -88,19 +89,20 @@ void DialectOpVisitor::handle(const slang::RootSymbol &root_symbol) {
 
 void DialectOpVisitor::handle(const slang::CompilationUnitSymbol &comp_symbol) {
     fmt::print("dialect visit compilationUnit: {}-{}\n", slang::toString(comp_symbol.kind), comp_symbol.name);
+ 
     auto m_iter_range = comp_symbol.members();
     for (auto m_iter = m_iter_range.begin(); m_iter != m_iter_range.end(); m_iter++) {
-        fmt::print("visit compile member: {}-{}", slang::toString(m_iter->kind), m_iter->name);
+        fmt::print("visit compile member: {}-{}\n", slang::toString(m_iter->kind), m_iter->name);
     }
 }
 
 void DialectOpVisitor::handle(const slang::InstanceSymbol &inst_symbol) {
     fmt::print("dialect visit instance: {}-{}\n", slang::toString(inst_symbol.kind), inst_symbol.name);
     // visitDefault(inst_symbol);
-
+    
     auto m_iter_range = inst_symbol.body.members();
     for (auto m_iter = m_iter_range.begin(); m_iter != m_iter_range.end(); m_iter++) {
-        fmt::print("visit compile member: {}-{}", slang::toString(m_iter->kind), m_iter->name);
+        fmt::print("visit compile member: {}-{}\n", slang::toString(m_iter->kind), m_iter->name);
     }
 }
 void DialectOpVisitor::handle(const slang::StatementSyntax &stat_symbol) {

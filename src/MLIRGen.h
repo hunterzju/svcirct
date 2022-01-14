@@ -8,6 +8,7 @@
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/MLIRContext.h"
+#include "mlir/Parser.h"
 #include "mlir/IR/Verifier.h"
 
 namespace mlir {
@@ -21,7 +22,7 @@ using namespace slang;
 
 /// Emit IR for the given Toy moduleAST, returns a newly created MLIR module
 /// or nullptr on failure.
-mlir::OwningModuleRef mlirGen(mlir::MLIRContext &context, InstanceSymbol &inst_symbol);
+mlir::OwningModuleRef mlirGen(mlir::MLIRContext &context, const RootSymbol &root_symbol);
 } // namespace svcirct 
 
 #endif

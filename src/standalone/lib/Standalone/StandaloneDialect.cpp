@@ -24,3 +24,25 @@ void StandaloneDialect::initialize() {
 #include "Standalone/StandaloneOps.cpp.inc"
       >();
 }
+
+// //===----------------------------------------------------------------------===//
+// // Standalone dialect type.
+// //===----------------------------------------------------------------------===//
+// #include "llvm/ADT/TypeSwitch.h"
+// #define GET_TYPEDEF_CLASSES
+// #include "Standalone/StandaloneOpsTypes.h.inc"
+// #define GET_TYPEDEF_CLASSES
+// #include "Standalone/StandaloneOpsTypes.cpp.inc"
+
+// Type StandaloneDialect::parseType(DialectAsmParser& parser) const {
+//   llvm::StringRef mnemonic;
+//   Type type;
+//   // if (generatedTypeParser(parser, mnemonic, type).hasValue())
+//   //   return type;
+  
+//   return type;
+// }
+
+// void StandaloneDialect::printType(Type type, DialectAsmPrinter &os) const {
+//   ;
+// }
